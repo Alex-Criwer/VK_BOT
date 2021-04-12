@@ -1,9 +1,9 @@
 import vk_api
 import random
 import commands
-from commands import COMMANDS
 from commands import CODES
 from commands import REFERENCES
+from commands import WEEK
 from PIL import Image
 from vk_api.longpoll import VkLongPoll, VkEventType
 from tokens import main_token
@@ -15,7 +15,6 @@ token = main_token
 session = vk_api.VkApi(token=token)
 
 longpoll = VkLongPoll(session)
-
 
 class VkBot:
 
@@ -46,7 +45,6 @@ class VkBot:
 
     def __init__(self, user_id):
         self.USER_ID = user_id
-        self.COMMANDS = commands.COMMANDS
         self.MAIN_KEYBOARD = VkKeyboard(one_time=False, inline=False)
         self.initialization_of_main_keyboard(self.MAIN_KEYBOARD)
         self.WEEK_KEYBOARD = VkKeyboard(one_time=True, inline=False)
@@ -69,63 +67,63 @@ class VkBot:
                                          'keyboard': my_keyboard.get_keyboard(), 'attachment': code})
 
     def new_message(self, message):
-        if message.upper() == COMMANDS['расписание'].upper():
+        if message.upper() == 'расписание'.upper():
             self.send_message(self.USER_ID, self.get_user_name_from_id(self.USER_ID) + ", выбери день недели",
                                      self.WEEK_KEYBOARD)
 
-        elif message.upper() == COMMANDS['начать'].upper():
+        elif message.upper() == 'начать'.upper():
             self.send_message(self.USER_ID, "ниже приведены возможные функции", self.MAIN_KEYBOARD)
 
-        elif message.upper() == COMMANDS['ссылки по предметам'].upper():
+        elif message.upper() == 'ссылки по предметам'.upper():
             self.send_message(self.USER_ID, "выбери предмет", self.SUBJECT_KEYBOARD)
 
-        elif message.upper() == COMMANDS['понедельник'].upper():
-            self.send_photo(self.USER_ID, COMMANDS['понедельник'], self.MAIN_KEYBOARD, CODES['понедельник'])
+        elif message.upper() == 'понедельник'.upper():
+            self.send_photo(self.USER_ID, 'понедельник', self.MAIN_KEYBOARD, CODES['понедельник'])
 
-        elif message.upper() == COMMANDS['вторник'].upper():
-            self.send_photo(self.USER_ID, COMMANDS['вторник'], self.MAIN_KEYBOARD, CODES['вторник'])
+        elif message.upper() == 'вторник'.upper():
+            self.send_photo(self.USER_ID, 'вторник', self.MAIN_KEYBOARD, CODES['вторник'])
 
-        elif message.upper() == COMMANDS['среда'].upper():
-            self.send_photo(self.USER_ID, COMMANDS['среда'], self.MAIN_KEYBOARD, CODES['среда'])
+        elif message.upper() == 'среда'.upper():
+            self.send_photo(self.USER_ID, 'среда', self.MAIN_KEYBOARD, CODES['среда'])
 
-        elif message.upper() == COMMANDS['четверг'].upper():
-            self.send_photo(self.USER_ID, COMMANDS['четверг'], self.MAIN_KEYBOARD, CODES['четверг'])
+        elif message.upper() == 'четверг'.upper():
+            self.send_photo(self.USER_ID, 'четверг', self.MAIN_KEYBOARD, CODES['четверг'])
 
-        elif message.upper() == COMMANDS['пятница'].upper():
-            self.send_photo(self.USER_ID, COMMANDS['пятница'], self.MAIN_KEYBOARD, CODES['пятница'])
+        elif message.upper() == 'пятница'.upper():
+            self.send_photo(self.USER_ID, 'пятница', self.MAIN_KEYBOARD, CODES['пятница'])
 
-        elif message.upper() == COMMANDS['суббота'].upper():
-            self.send_photo(self.USER_ID, COMMANDS['суббота'], self.MAIN_KEYBOARD, CODES['суббота'])
+        elif message.upper() == 'суббота'.upper():
+            self.send_photo(self.USER_ID, 'суббота', self.MAIN_KEYBOARD, CODES['суббота'])
 
-        elif message.upper() == COMMANDS['воскресенье'].upper():
-            self.send_photo(self.USER_ID, COMMANDS['воскресенье'], self.MAIN_KEYBOARD, CODES['воскресенье'])
+        elif message.upper() == 'воскресенье'.upper():
+            self.send_photo(self.USER_ID, 'воскресенье', self.MAIN_KEYBOARD, CODES['воскресенье'])
 
-        elif message.upper() == COMMANDS['матан'].upper():
+        elif message.upper() == 'матан'.upper():
             self.send_message(self.USER_ID,
                               "табличка с баллами Орел: " + REFERENCES['матан_opел'] + "\n" +
                               "classroom с дз: " + REFERENCES['матан_дз'],
                               self.MAIN_KEYBOARD)
 
-        elif message.upper() == COMMANDS['аналмех'].upper():
+        elif message.upper() == 'аналмех'.upper():
             self.send_message(self.USER_ID,
                               "табличка с баллами: " + REFERENCES['аналмех'],
                               self.MAIN_KEYBOARD)
 
-        elif message.upper() == COMMANDS['бд'].upper():
+        elif message.upper() == 'бд'.upper():
             self.send_message(self.USER_ID,
-                              "ссылка на записи лекций: " + REFERENCES['бд'],
+                              "ссылка на записи лекций: " + REFERENCES['бд'] + '\n' +
+                              "ссылка на оценки: " + REFERENCES['бд оценки'],
                               self.MAIN_KEYBOARD)
 
-        elif message.upper() == COMMANDS['диффуры'].upper():
+        elif message.upper() == 'диффуры'.upper():
             self.send_message(self.USER_ID,
                               "ссылка на записи лекций: " + REFERENCES['диффуры'],
                               self.MAIN_KEYBOARD)
 
-        elif message.upper() == COMMANDS['ТПМС'].upper():
+        elif message.upper() == 'ТПМС'.upper():
             self.send_message(self.USER_ID,
                               "ссылка на записи семинаров: " + REFERENCES['ТПМС'],
                               self.MAIN_KEYBOARD)
-
 
         else:
             self.send_message(self.USER_ID, "не понимаю, о чем вы", self.MAIN_KEYBOARD)
